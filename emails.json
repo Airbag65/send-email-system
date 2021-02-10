@@ -1,0 +1,16 @@
+{
+    "accounts": [
+        {
+            "email": "email.account1@example.com",
+            "email-password": "emailpasswordaccount1",
+            "name": "account 1",
+            "password": "passwordaccount1"
+        },
+        {
+            "email": "email.account2@example.com",
+            "email-password": "emailpasswordaccount2",
+            "name": "account 2",
+            "password": "passwordaccount2"
+        }
+    ]
+}
