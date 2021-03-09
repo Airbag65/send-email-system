@@ -3,14 +3,18 @@
         {
             "email": "email.account1@example.com",
             "email-password": "emailpasswordaccount1",
-            "name": "account 1",
-            "password": "passwordaccount1"
+            "name": "user1",
+            "password": "passwordaccount1",
+            "contacts": "./contacts/user1-contacts.txt",
+            "message": "./messages/user1-message.txt"
         },
         {
             "email": "email.account2@example.com",
             "email-password": "emailpasswordaccount2",
-            "name": "account 2",
-            "password": "passwordaccount2"
+            "name": "user2",
+            "password": "passwordaccount2",
+            "contacts": "./contacts/user2-contacts.txt",
+            "message": "./messages/user2-message.txt"
         }
     ]
 }
