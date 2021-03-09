@@ -2,6 +2,7 @@ import json
 import open_json
 import login
 import smtplib
+import subprocess as sp
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from string import Template
@@ -11,8 +12,11 @@ user_name = ""
 user_password = ""
 user_email = ""
 user_email_password = ""
+user_contacts = ""
+user_message = ""
 names = []
 emails = []
+contacts = []
 message = ""
 message_body = ""
 receiving_adress = ""
@@ -26,12 +30,14 @@ send_message_selection = ""
 s = smtplib.SMTP(host='smtp.gmail.com', port=587)
 
 def user_information():
-    global user_name, user_password, user_email, user_email_password
+    global user_name, user_password, user_email, user_email_password, user_contacts, user_message
     login.run()
     user_name = login.to_return[0]
     user_password = login.to_return[1]
     user_email = login.to_return[2]
     user_email_password = login.to_return[3]
+    user_contacts = login.to_return[4]
+    user_message = login.to_return[5]
 
 
 def login_mail():
@@ -57,11 +63,10 @@ def select_receiver():
         index += 1
         if i.lower() == receiver.lower():
             receiver = i
-            print(receiver)
             receiving_adress = emails[index]
             receiver_name = names[index]
             adress_found = True
-            print("\nReceiver selected!\n")
+            print(f"\nReceiver {receiver} selected!\n")
         else:
             adress_found = False
         
@@ -92,7 +97,16 @@ def construct_email():
     select_receiver()
 
     email_subject = input("Type the subject of your email: ")
-    message_template = read_template("./message.txt")
+    edit_message = input("Do you want to edit your message? [Y/N] ")
+
+    if edit_message.lower() == "y":
+        sp.Popen(["notepad.exe", user_message])
+        print("\n\nSave the file and exit NOTEPAD when done editing\nDon't proceed before changes are done! \n ")
+        done_editing = input("\nPress ENTER to confirm changes and proceed")
+        if done_editing != "sdvfuhhsfukfr ygsyguy giusy giuydsfug sdfyg usiu gdsfyg yg45ygw 74yg7ryg7w4yg7yrtg wyg7y rt87g yrt78yg 87rtg":
+            message_template = read_template(user_message)
+    else:
+        message_template = read_template(user_message)
 
     message_body = message_template.substitute(receiver = receiver_name.title())
 
@@ -111,12 +125,12 @@ def construct_email():
     
 
 def send_email():
-    global s, send_message_selection
+    global s, send_message_selection, user_contacts
     user_information()
+    get_contact(user_contacts)
     login_mail()
-    get_contact("./contacts.txt")
     meddelande = construct_email()
-    comfirm_send = input("Do you want to confirm and send the mail? [y/n]: ")
+    comfirm_send = input("Do you want to confirm and send the mail? [Y/N]: ")
     if comfirm_send.lower() == "y":
         s.send_message(meddelande) 
         print("\n\nMessage has been sent! \n\n")
@@ -130,9 +144,7 @@ def send_email():
 
     while send_message_selection:
         end_program = input("\n\nPress ENTER to stop the program: \n\n\n")
-        if end_program == "":
-            send_message_selection = False
-        else:
+        if end_program != "sdhfisjdfijsdfosdfpa foisdfi roifu osfgo sdfog dfg fgudg dsfig ydsfygiudsf giufgiusd fyguoi dfugoysdg yisdyg 784 ysgo74yg78osryg o874 yg87rg ysr ygfygyd fgidigodfygiu dfygi":
             send_message_selection = False
 
 send_email()
