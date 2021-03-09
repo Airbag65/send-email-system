@@ -1,5 +1,6 @@
 import json
 from getpass import getpass
+from time import sleep as sleep
 
 # Strings
 name = ""
@@ -15,9 +16,8 @@ new_account = {}
 
 def create_account():
     global name, password, confirm_password, new_account
-    name = input(
-        "\nSelect the name of the new account. \nMake sure to double check if it's correct before submiting! \nEnter the name of the account: "
-        )
+
+    name = input("\nSelect the name of the new account. \nMake sure to double check if it's correct before submiting! \nEnter the name of the account: ")
     create_password()
     if password != confirm_password:
         print("\nThe passwords do not match!\nTry again!\n")
@@ -28,7 +28,25 @@ def create_account():
     if password_email != confirm_password_email:
         print("\nThe passwords do not match!\nTry again!\n")
         create_email_password()
-    new_account = {'name': f'{name}','password': f'{password}', 'email': f'{email}', 'email-password': f'{password_email}'}
+
+    sleep(.5)
+
+    contacts_page = f"./contacts/{name.lower()}-contacts.txt"
+    c = open(f"./contacts/{name.lower()}-contacts.txt", "a")
+    c.write("")
+    c.close()
+    print(f"\nCreated contacts file '{name.lower()}-contacts' in the 'contacts' folder\n")
+
+    sleep(.5)
+
+    message_page = f"./messages/{name.lower()}-message.txt"
+    m = open(f"./messages/{name.lower()}-message.txt", "a")
+    m.write("Hej ${receiver}!")
+    m.close()
+    print(f"\nCreated message file '{name.lower()}-message' in the 'messages' folder\n")
+    
+
+    new_account = {'name': f'{name}','password': f'{password}', 'email': f'{email}', 'email-password': f'{password_email}', 'contacts': f'{contacts_page}', 'message': f'{message_page}'}
 
     with open ("emails.json", "r") as open_file:
         data = json.load(open_file)
@@ -39,6 +57,7 @@ def create_account():
     write_file = open("emails.json", "w+")
     write_file.write(json.dumps(data, indent = 4, sort_keys = True))
     write_file.close()
+
     
 
 def create_password():
