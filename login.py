@@ -14,6 +14,8 @@ active_account = ""
 active_password = ""
 relevant_email = ""
 relevant_email_password = ""
+relevant_contacts = ""
+relevant_message = ""
 user_choice = ""
 
 # Integers
@@ -27,12 +29,14 @@ to_return = []
 
 
 def choose_account():
-    global available_accounts, chosen_account, possible_passwords, active_account, active_password, num, account_found, relevant_email, relevant_email_password, to_return
+    global available_accounts, chosen_account, possible_passwords, active_account, active_password, num, account_found, relevant_email, relevant_email_password, to_return, relevant_contacts, relevant_message
 
     available_accounts = open_json.open_json()[0]
     possible_passwords = open_json.open_json()[1] 
     email_adresses = open_json.open_json()[2]
     email_passwords = open_json.open_json()[3]
+    contacts = open_json.open_json()[4]
+    messages = open_json.open_json()[5]
 
     num = -1
     print("\nAvailable accounts: ")
@@ -48,11 +52,15 @@ def choose_account():
             active_password = possible_passwords[num]
             relevant_email = email_adresses[num]
             relevant_email_password = email_passwords[num]
+            relevant_contacts = contacts[num]
+            relevant_message = messages[num]
 
             to_return.append(active_account)
             to_return.append(active_password)
             to_return.append(relevant_email)
             to_return.append(relevant_email_password)
+            to_return.append(relevant_contacts)
+            to_return.append(relevant_message)
 
             account_found = True
             print("Account Found!\nEnter the password for " + chosen_account + "\n")
