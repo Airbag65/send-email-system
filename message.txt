@@ -1,5 +1,0 @@
-Hello ${receiver},
-
-This is a test email sent via a python script
-
-Best regards!
